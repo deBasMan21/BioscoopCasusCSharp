@@ -1,21 +1,21 @@
 ﻿using System;
+using BioscoopCasus.Utils;
+
 namespace BioscoopCasus.Domain
 {
 	public class Order
 	{
-        private readonly int _orderNr;
-		private readonly List<MovieTicket> _tickets;
+        public int OrderNr { get; private set; }
+		public List<MovieTicket> Tickets { get; private set; }
 
 		public Order(int orderNr)
 		{
-			this._orderNr = orderNr;
-			this._tickets = new List<MovieTicket>();
+			OrderNr = orderNr;
+			Tickets = new List<MovieTicket>();
 		}
 
-		public int GetOrderNr() => _orderNr;
-
 		public void AddSeatReservation(MovieTicket ticket) {
-			this._tickets.Add(ticket);
+			Tickets.Add(ticket);
 		}
 
 		public void CalculatePrice() {
@@ -24,15 +24,20 @@ namespace BioscoopCasus.Domain
 
 		public void Export(TicketExportFormat exportFormat) {
 			switch (exportFormat) {
-				case TicketExportFormat.PLAINTEXT:
-					Console.WriteLine("");
+				case TicketExportFormat.JSON:
+					FileUtils.ExportJSON<Order>(this);
 					break;
 
-				case TicketExportFormat.JSON:
-					Console.WriteLine("");
+				case TicketExportFormat.PLAINTEXT:
+					FileUtils.ExportPlainText<Order>(this);
 					break;
 			}
 		}
-	}
+
+        public override string ToString()
+        {
+            return $"Order number: {OrderNr}\nTickets: {Tickets.Count}";
+        }
+    }
 }
 
