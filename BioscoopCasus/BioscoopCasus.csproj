@@ -9,8 +9,10 @@
 
   <ItemGroup>
     <None Remove="Domain\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>

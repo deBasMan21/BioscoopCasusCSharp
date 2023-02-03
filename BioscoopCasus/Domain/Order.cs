@@ -1,4 +1,6 @@
 ﻿using System;
+using BioscoopCasus.Extensions;
+
 namespace BioscoopCasus.Domain
 {
 	public class Order
@@ -8,18 +10,28 @@ namespace BioscoopCasus.Domain
 
 		public Order(int orderNr)
 		{
-			this._orderNr = orderNr;
-			this._tickets = new List<MovieTicket>();
+			_orderNr = orderNr;
+			_tickets = new List<MovieTicket>();
 		}
 
 		public int GetOrderNr() => _orderNr;
 
 		public void AddSeatReservation(MovieTicket ticket) {
-			this._tickets.Add(ticket);
+			_tickets.Add(ticket);
 		}
 
-		public void CalculatePrice() {
+		public double CalculatePrice() {
+			bool isStudentOrder = _tickets.Where(x => x.GetIsStudentOrder()).ToList().Count > 0;
 
+			var prices = _tickets
+				.Select(x => x.GetPrice() * (!isStudentOrder && _tickets.Count >= 6 && x.GetDateAndTime().IsWeekend() ? 0.9 : 1));
+
+			if(isStudentOrder || !_tickets[0].GetDateAndTime().IsWeekend())
+            {
+				prices = prices.SplitList(2).Select(x => x.ToList()[0]);
+            }
+
+			return prices.Aggregate((x, y) => x + y);
 		}
 
 		public void Export(TicketExportFormat exportFormat) {
