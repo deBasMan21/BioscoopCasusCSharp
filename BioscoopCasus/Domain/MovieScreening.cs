@@ -4,20 +4,16 @@ namespace BioscoopCasus.Domain
 	public class MovieScreening
 	{
 
-		private readonly DateTime _dateAndTime;
-		private readonly double _pricePerSeat;
-        private readonly Movie _movie;
+		public DateTime DateAndTime { get; private set; }
+		public double PicePerSeat { get; private set; }
+		public Movie Movie { get; private set; }
 
 		public MovieScreening(Movie movie, DateTime dateAndTime, Double pricePerSeat)
 		{
-            this._movie = movie;
-			this._dateAndTime = dateAndTime;
-			this._pricePerSeat = pricePerSeat;
+            this.Movie = movie;
+			this.DateAndTime = dateAndTime;
+			this.PicePerSeat = pricePerSeat;
         }
-
-		public double GetPricePerSeat() => _pricePerSeat;
-
-		public DateTime GetDateAndTime() => _dateAndTime;
 
         public override string ToString()
         {

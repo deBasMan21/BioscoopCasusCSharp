@@ -3,16 +3,16 @@ namespace BioscoopCasus.Domain
 {
 	public class Movie
 	{
-        private readonly string _title;
-        private readonly List<MovieScreening> _screenings;
+        public string Title { get; private set; }
+        public List<MovieScreening> Screenings { get; private set; }
 
         public Movie(string title)
         {
-            this._title = title;
-            this._screenings = new List<MovieScreening>();
+            this.Title = title;
+            this.Screenings = new List<MovieScreening>();
         }
 
-        public void AddScreening(MovieScreening screening) => this._screenings.Add(screening);
+        public void AddScreening(MovieScreening screening) => this.Screenings.Add(screening);
 
         public override string ToString()
         {

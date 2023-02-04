@@ -3,36 +3,32 @@ namespace BioscoopCasus.Domain
 {
 	public class MovieTicket
 	{
-		private readonly MovieScreening _movieScreening;
-		private readonly int _rowNr;
-		private readonly int _seatNr;
-		private readonly bool _isPremium;
-		private readonly bool _isStudentOrder;
+		public MovieScreening MovieScreening;
+		public int RowNr { get; private set; }
+		public int SeatNr { get; private set; }
+		public bool IsPremium { get; private set; }
+		public bool IsStudentOrder { get; private set; }
 
 		public MovieTicket(MovieScreening movieScreening, int rowNr, int seatNr, bool isPremium, bool isStudentOrder)
 		{
-			this._movieScreening = movieScreening;
-			this._rowNr = rowNr;
-			this._seatNr = seatNr;
-			this._isPremium = isPremium;
-			this._isStudentOrder = isStudentOrder;
+			this.MovieScreening = movieScreening;
+			this.RowNr = rowNr;
+			this.SeatNr = seatNr;
+			this.IsPremium = isPremium;
+			this.IsStudentOrder = isStudentOrder;
 		}
-
-		public bool IsPremiumTicket() => _isPremium;
-
-		public bool GetIsStudentOrder() => _isStudentOrder;
 
 		public double GetPrice() {
-			if (_isPremium)
+			if (IsPremium)
 			{
-				return _movieScreening.GetPricePerSeat() + (_isStudentOrder ? 2 : 3);
+				return MovieScreening.PicePerSeat + (IsStudentOrder ? 2 : 3);
 			}
 			else {
-				return _movieScreening.GetPricePerSeat();
+				return MovieScreening.PicePerSeat;
 			}
 		}
 
-		public DateTime GetDateAndTime() => _movieScreening.GetDateAndTime();
+		public DateTime GetDateAndTime() => MovieScreening.DateAndTime;
 
         public override string ToString()
         {

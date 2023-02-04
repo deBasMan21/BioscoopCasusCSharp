@@ -1,50 +1,68 @@
 ﻿using System;
 using BioscoopCasus.Extensions;
+using BioscoopCasus.Utils;
 
 namespace BioscoopCasus.Domain
 {
 	public class Order
 	{
-        private readonly int _orderNr;
-		private readonly List<MovieTicket> _tickets;
+        public int OrderNr { get; private set; }
+		public List<MovieTicket> Tickets { get; private set; }
 
 		public Order(int orderNr)
 		{
-			_orderNr = orderNr;
-			_tickets = new List<MovieTicket>();
+			OrderNr = orderNr;
+			Tickets = new List<MovieTicket>();
 		}
 
-		public int GetOrderNr() => _orderNr;
-
 		public void AddSeatReservation(MovieTicket ticket) {
-			_tickets.Add(ticket);
+			Tickets.Add(ticket);
 		}
 
 		public double CalculatePrice() {
-			bool isStudentOrder = _tickets.Where(x => x.GetIsStudentOrder()).ToList().Count > 0;
+			double studentPrice = Tickets
+				.FindAll(ticket => ticket.IsStudentOrder)
+				.OrderByDescending(ticket => ticket.IsPremium)
+				.Select((ticket, i) => (i + 1) % 2 == 1 ? ticket.GetPrice(): 0)
+				.Sum();
 
-			var prices = _tickets
-				.Select(x => x.GetPrice() * (!isStudentOrder && _tickets.Count >= 6 && x.GetDateAndTime().IsWeekend() ? 0.9 : 1));
+			double regularPrice = Tickets
+				.FindAll(ticket => !ticket.IsStudentOrder)
+				.OrderByDescending(ticket => ticket.IsPremium)
+				.Select((ticket, i) => {
+					if (ticket.GetDateAndTime().IsWeekend())
+					{
+						return ticket.GetPrice();
+					}
+					return (i + 1) % 2 == 1 ? ticket.GetPrice() : 0;
 
-			if(isStudentOrder || !_tickets[0].GetDateAndTime().IsWeekend())
-            {
-				prices = prices.SplitList(2).Select(x => x.ToList()[0]);
-            }
+				})
+				.Sum();
 
-			return prices.Aggregate((x, y) => x + y);
+			if (Tickets.Count(t => !t.IsStudentOrder) >= 6)
+			{
+				regularPrice *= 0.9;
+			}
+
+			return studentPrice + regularPrice;
 		}
 
 		public void Export(TicketExportFormat exportFormat) {
 			switch (exportFormat) {
-				case TicketExportFormat.PLAINTEXT:
-					Console.WriteLine("");
+				case TicketExportFormat.JSON:
+					FileUtils.ExportJSON<Order>(this);
 					break;
 
-				case TicketExportFormat.JSON:
-					Console.WriteLine("");
+				case TicketExportFormat.PLAINTEXT:
+					FileUtils.ExportPlainText<Order>(this);
 					break;
 			}
 		}
-	}
+
+        public override string ToString()
+        {
+            return $"Order number: {OrderNr}\nTickets: {Tickets.Count}";
+        }
+    }
 }
 
