@@ -20,15 +20,21 @@ namespace BioscoopCasus.Domain
 		}
 
 		public double CalculatePrice() {
-			double studentPrice = Tickets
+			List<MovieTicket> studentTickets = Tickets
 				.FindAll(ticket => ticket.IsStudentOrder)
 				.OrderByDescending(ticket => ticket.IsPremium)
-				.Select((ticket, i) => (i + 1) % 2 == 1 ? ticket.GetPrice(): 0)
+				.ToList();
+
+			double studentPrice = studentTickets
+				.Select((ticket, i) => (i + 1) % 2 == 1 ? ticket.GetPrice() : 0)
 				.Sum();
 
-			double regularPrice = Tickets
+			List<MovieTicket> regularTickets = Tickets
 				.FindAll(ticket => !ticket.IsStudentOrder)
 				.OrderByDescending(ticket => ticket.IsPremium)
+				.ToList();
+
+			double regularPrice = regularTickets
 				.Select((ticket, i) => {
 					if (ticket.GetDateAndTime().IsWeekend())
 					{
@@ -39,7 +45,7 @@ namespace BioscoopCasus.Domain
 				})
 				.Sum();
 
-			if (Tickets.Count(t => !t.IsStudentOrder) >= 6)
+			if (regularTickets[0].GetDateAndTime().IsWeekend() && regularTickets.Count >= 6)
 			{
 				regularPrice *= 0.9;
 			}
