@@ -45,7 +45,7 @@ namespace BioscoopCasus.Domain
 				})
 				.Sum();
 
-			if (regularTickets[0].GetDateAndTime().IsWeekend() && regularTickets.Count >= 6)
+			if (regularTickets.Count >= 6 && regularTickets[0].GetDateAndTime().IsWeekend())
 			{
 				regularPrice *= 0.9;
 			}
