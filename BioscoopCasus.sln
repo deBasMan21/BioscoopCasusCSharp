@@ -5,6 +5,8 @@ VisualStudioVersion = 25.0.1703.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioscoopCasus", "BioscoopCasus\BioscoopCasus.csproj", "{A8A3328A-E2FF-4DB6-B678-36344871460D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{12C4682E-8442-4A6D-85A4-B493267657C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A8A3328A-E2FF-4DB6-B678-36344871460D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8A3328A-E2FF-4DB6-B678-36344871460D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8A3328A-E2FF-4DB6-B678-36344871460D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C4682E-8442-4A6D-85A4-B493267657C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C4682E-8442-4A6D-85A4-B493267657C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C4682E-8442-4A6D-85A4-B493267657C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C4682E-8442-4A6D-85A4-B493267657C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
