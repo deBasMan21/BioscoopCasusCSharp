@@ -3,7 +3,7 @@ namespace BioscoopCasus.Domain
 {
 	public class MovieTicket
 	{
-		public MovieScreening MovieScreening;
+		public MovieScreening MovieScreening { get; private set; }
 		public int RowNr { get; private set; }
 		public int SeatNr { get; private set; }
 		public bool IsPremium { get; private set; }

@@ -141,7 +141,6 @@ namespace DomainTests.OrderTests
 		[InlineData("2023-02-10")]
 		[InlineData("2023-02-11")]
 		[InlineData("2023-02-12")]
-		[InlineData("2023-02-12")]
 		public void CalculatePrice_SixRegularTicketsOnWeekends_ShouldReturnFiftyFour(string date)
 		{
 			// Arrange
