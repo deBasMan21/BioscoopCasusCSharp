@@ -1,4 +1,5 @@
 ﻿using System;
+using BioscoopCasus.Domain.ExportStrategy;
 using BioscoopCasus.Extensions;
 using BioscoopCasus.Utils;
 
@@ -8,6 +9,7 @@ namespace BioscoopCasus.Domain
 	{
         public int OrderNr { get; private set; }
 		public List<MovieTicket> Tickets { get; private set; }
+		public IExportBehaviour? ExportBehaviour { get; set; }
 
 		public Order(int orderNr)
 		{
@@ -53,16 +55,8 @@ namespace BioscoopCasus.Domain
 			return studentPrice + regularPrice;
 		}
 
-		public void Export(TicketExportFormat exportFormat) {
-			switch (exportFormat) {
-				case TicketExportFormat.JSON:
-					FileUtils.ExportJSON<Order>(this);
-					break;
-
-				case TicketExportFormat.PLAINTEXT:
-					FileUtils.ExportPlainText<Order>(this);
-					break;
-			}
+		public void Export() {
+			ExportBehaviour?.Export<Order>(this);
 		}
 
         public override string ToString()

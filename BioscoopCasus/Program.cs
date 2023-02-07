@@ -1,4 +1,5 @@
 ﻿using BioscoopCasus.Domain;
+using BioscoopCasus.Domain.ExportStrategy;
 
 double price = 10;
 Movie movie = new (title: "Avatar: The way of water");
@@ -21,4 +22,8 @@ sut.AddSeatReservation(ticket4);
 
 Console.WriteLine(sut.CalculatePrice());
 
-sut.Export(TicketExportFormat.JSON);
+sut.ExportBehaviour = new ExportJSON();
+sut.Export();
+
+sut.ExportBehaviour = new ExportPlainText();
+sut.Export();
