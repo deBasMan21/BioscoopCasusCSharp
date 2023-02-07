@@ -21,7 +21,7 @@ namespace BioscoopCasus.Domain
 
 		public double CalculatePrice() {
 			List<MovieTicket> studentTickets = Tickets
-				.FindAll(ticket => ticket.IsStudentOrder)
+				.FindAll(ticket => ticket.CustomerType.IsStudent())
 				.OrderByDescending(ticket => ticket.IsPremium)
 				.ToList();
 
@@ -30,7 +30,7 @@ namespace BioscoopCasus.Domain
 				.Sum();
 
 			List<MovieTicket> regularTickets = Tickets
-				.FindAll(ticket => !ticket.IsStudentOrder)
+				.FindAll(ticket => !ticket.CustomerType.IsStudent())
 				.OrderByDescending(ticket => ticket.IsPremium)
 				.ToList();
 
