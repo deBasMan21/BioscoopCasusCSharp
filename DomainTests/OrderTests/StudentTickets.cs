@@ -24,7 +24,7 @@ namespace DomainTests.OrderTests
 			double price = 10;
 			Movie movie = new("Avatar: The way of water");
 			MovieScreening movieScreening = new(movie, DateTime.Parse(date), price);
-			MovieTicket ticket = new(movieScreening, rowNr: 1, seatNr: 1, isPremium: false, isStudentOrder: true);
+			MovieTicket ticket = new(movieScreening, rowNr: 1, seatNr: 1, isPremium: false, type: CustomerType.STUDENT);
 
 			Order sut = new(1);
 			for (int i = 0; i < 4; i++)
@@ -46,7 +46,7 @@ namespace DomainTests.OrderTests
 			double price = 10;
 			Movie movie = new("Avatar: The way of water");
 			MovieScreening movieScreening = new(movie, DateTime.Parse("2023-02-06"), price);
-			MovieTicket ticket = new(movieScreening, rowNr: 1, seatNr: 1, isPremium: false, isStudentOrder: true);
+			MovieTicket ticket = new(movieScreening, rowNr: 1, seatNr: 1, isPremium: false, type: CustomerType.STUDENT);
 
 			Order sut = new(1);
 			for (int i = 0; i < 3; i++)
@@ -68,7 +68,7 @@ namespace DomainTests.OrderTests
 			double price = 10;
 			Movie movie = new("Avatar: The way of water");
 			MovieScreening movieScreening = new(movie, DateTime.Parse("2023-02-06"), price);
-			MovieTicket ticket = new(movieScreening, rowNr: 1, seatNr: 1, isPremium: true, isStudentOrder: true);
+			MovieTicket ticket = new(movieScreening, rowNr: 1, seatNr: 1, isPremium: true, type: CustomerType.STUDENT);
 
 			Order sut = new(1);
 			for (int i = 0; i < 4; i++)
