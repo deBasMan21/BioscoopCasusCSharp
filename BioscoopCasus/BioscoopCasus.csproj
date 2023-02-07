@@ -11,10 +11,14 @@
     <None Remove="Domain\" />
     <None Remove="Utils\" />
     <None Remove="Extensions\" />
+    <None Remove="Domain\ExportStrategy\" />
+    <None Remove="Domain\PremiumPriceStrategy\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
     <Folder Include="Utils\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Domain\ExportStrategy\" />
+    <Folder Include="Domain\PremiumPriceStrategy\" />
   </ItemGroup>
 </Project>
