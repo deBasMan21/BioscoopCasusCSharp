@@ -3,10 +3,11 @@ using BioscoopCasus.Domain.ExportStrategy;
 using BioscoopCasus.Extensions;
 using BioscoopCasus.Utils;
 using BioscoopCasus.Domain.OrderStateFolder;
+using BioscoopCasus.Domain.NotificationObserver;
 
 namespace BioscoopCasus.Domain
 {
-	public class Order: OrderStateHolder
+	public class Order: OrderStateHolder, IPublisher
 	{
         public int OrderNr { get; private set; }
 		public List<MovieTicket> Tickets { get; private set; }
@@ -85,6 +86,28 @@ namespace BioscoopCasus.Domain
         public void UpdateState(OrderState newState)
         {
 			OrderState = newState;
+			Publish(newState);
+		}
+
+
+		private List<ISubscriber> Subscribers;
+
+		public void Publish(OrderState message)
+        {
+            foreach(ISubscriber subscriber in Subscribers)
+            {
+				subscriber.Update(message);
+            }
+        }
+
+        public void RegisterSubscriber(ISubscriber s)
+        {
+            Subscribers.Add(s);
+        }
+
+        public void UnRegisterSubscriber(ISubscriber s)
+        {
+			Subscribers.Remove(s);
         }
     }
 }

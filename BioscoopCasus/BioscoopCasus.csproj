@@ -9,13 +9,14 @@
 
   <ItemGroup>
     <None Remove="Domain\" />
+    <None Remove="Domain\NotificationObserver\EmailSubscriber" />
+    <None Remove="Domain\NotificationObserver\NewFile1.txt" />
     <None Remove="Utils\" />
     <None Remove="Extensions\" />
     <None Remove="Domain\ExportStrategy\" />
     <None Remove="Domain\PremiumPriceStrategy\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\" />
     <Folder Include="Utils\" />
     <Folder Include="Extensions\" />
     <Folder Include="Domain\ExportStrategy\" />
