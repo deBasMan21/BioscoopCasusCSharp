@@ -2,19 +2,22 @@
 using BioscoopCasus.Domain.ExportStrategy;
 using BioscoopCasus.Extensions;
 using BioscoopCasus.Utils;
+using BioscoopCasus.Domain.OrderStateFolder;
 
 namespace BioscoopCasus.Domain
 {
-	public class Order
+	public class Order: OrderStateHolder
 	{
         public int OrderNr { get; private set; }
 		public List<MovieTicket> Tickets { get; private set; }
 		public IExportBehaviour? ExportBehaviour { get; set; }
+		public OrderState OrderState { get; set; }
 
 		public Order(int orderNr)
 		{
 			OrderNr = orderNr;
 			Tickets = new List<MovieTicket>();
+			OrderState = new TemplateState(this);
 		}
 
 		public void AddSeatReservation(MovieTicket ticket) {
@@ -55,13 +58,33 @@ namespace BioscoopCasus.Domain
 			return studentPrice + regularPrice;
 		}
 
+		public void Submit()
+        {
+			OrderState.Submit();
+        }
+
+		public void Pay()
+        {
+			OrderState.Pay();
+        }
+
+		public void Cancel()
+        {
+			OrderState.Cancel();
+        }
+
 		public void Export() {
-			ExportBehaviour?.Export<Order>(this);
+			ExportBehaviour?.Export(this);
 		}
 
         public override string ToString()
         {
             return $"Order number: {OrderNr}\nTickets: {Tickets.Count}";
+        }
+
+        public void UpdateState(OrderState newState)
+        {
+			OrderState = newState;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace BioscoopCasus.Domain.OrderState
+namespace BioscoopCasus.Domain.OrderStateFolder
 {
 	public interface OrderStateHolder
 	{

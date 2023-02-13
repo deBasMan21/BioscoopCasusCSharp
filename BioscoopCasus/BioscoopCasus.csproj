@@ -13,7 +13,6 @@
     <None Remove="Extensions\" />
     <None Remove="Domain\ExportStrategy\" />
     <None Remove="Domain\PremiumPriceStrategy\" />
-    <None Remove="Domain\OrderState\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
@@ -21,6 +20,5 @@
     <Folder Include="Extensions\" />
     <Folder Include="Domain\ExportStrategy\" />
     <Folder Include="Domain\PremiumPriceStrategy\" />
-    <Folder Include="Domain\OrderState\" />
   </ItemGroup>
 </Project>
